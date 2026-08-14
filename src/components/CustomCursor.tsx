@@ -94,55 +94,18 @@ export const CustomCursor: React.FC = () => {
         return;
       }
 
-      // Check section titles, section badges, section headers, or navbar links
-      const sectionEl = hoverable.closest('section, header, [id]') as HTMLElement | null;
-      const textLow = (hoverable.textContent || hoverable.innerText || '').toLowerCase();
-      const hrefLow = (hoverable.getAttribute('href') || '').toLowerCase();
-      const sectionId = (sectionEl?.getAttribute('id') || '').toLowerCase();
-
-      // Explicit section checks based on ID or text context
-      if (hrefLow.includes('#about') || sectionId === 'about' || textLow.includes('about me') || textLow.includes('who i am')) {
-        setCursorType('about');
+      // Section titles, badges, section headers, or navbar links use subtle ring scaling (no text label)
+      if (
+        hoverable.closest('.nav-item, .mobile-nav-item, .section-header, .section-title, .section-badge') ||
+        hoverable.matches('h1, h2, .section-title, .section-badge, .nav-item')
+      ) {
+        setCursorType('link');
         return;
-      }
-      if (hrefLow.includes('#skills') || sectionId === 'skills' || textLow.includes('skills') || textLow.includes('tech stack')) {
-        setCursorType('skills');
-        return;
-      }
-      if (hrefLow.includes('#projects') || textLow.includes('projects') || textLow.includes("things i've built")) {
-        // Handled by project card check later, but for header:
-        if (hoverable.closest('.section-header, .section-title, .section-badge, .nav-item')) {
-          setCursorType('project');
-          return;
-        }
-      }
-      if (hrefLow.includes('#experience') || sectionId === 'experience' || textLow.includes('experience') || textLow.includes('work history')) {
-        setCursorType('experience');
-        return;
-      }
-      if (hrefLow.includes('#achievements') || sectionId === 'achievements' || textLow.includes('certification') || textLow.includes('achievements')) {
-        setCursorType('certs');
-        return;
-      }
-      if (hrefLow.includes('#education') || sectionId === 'education' || textLow.includes('education') || textLow.includes('academic')) {
-        setCursorType('education');
-        return;
-      }
-      if (hrefLow.includes('#hero') || sectionId === 'hero' || textLow.includes('hi, i\'m') || textLow.includes('home')) {
-        if (hoverable.closest('.section-title, .hero-headline, .nav-item')) {
-          setCursorType('home');
-          return;
-        }
       }
 
       // Check project card
       if (hoverable.closest('.project-retro-card, .project-box-wrapper')) {
-        // If hovering specific github button inside project card
-        if (hoverable.closest('.ref-btn-github') || textLow.includes('github')) {
-          setCursorType('github');
-        } else {
-          setCursorType('project');
-        }
+        setCursorType('link');
         return;
       }
 
@@ -162,6 +125,49 @@ export const CustomCursor: React.FC = () => {
         setCursorType('contact');
       } else {
         setCursorType('link');
+      }
+
+      // Magnetic Attraction Effect (Max 6px translation) for specific buttons:
+      // View Projects, Resume, GitHub, Let's Connect
+      const targetBtn = target.closest('a, button') as HTMLElement | null;
+      if (targetBtn) {
+        const btnText = (targetBtn.textContent || targetBtn.innerText || '').toLowerCase();
+        const btnHref = (targetBtn.getAttribute('href') || '').toLowerCase();
+
+        const isMagneticTarget =
+          btnText.includes('view my work') ||
+          btnText.includes('view projects') ||
+          btnText.includes('resume') ||
+          btnText.includes('github') ||
+          btnText.includes("let's connect") ||
+          btnHref.includes('github.com') ||
+          btnHref.includes('resume');
+
+        if (isMagneticTarget) {
+          const rect = targetBtn.getBoundingClientRect();
+          const btnCenterX = rect.left + rect.width / 2;
+          const btnCenterY = rect.top + rect.height / 2;
+
+          const distanceX = e.clientX - btnCenterX;
+          const distanceY = e.clientY - btnCenterY;
+
+          // Restrained 4-8px pull range (max 6px)
+          const pullX = Math.max(-6, Math.min(6, distanceX * 0.15));
+          const pullY = Math.max(-6, Math.min(6, distanceY * 0.15));
+
+          targetBtn.style.transform = `translate3d(${pullX}px, ${pullY}px, 0)`;
+
+          if (!targetBtn.hasAttribute('data-magnetic-attached')) {
+            targetBtn.setAttribute('data-magnetic-attached', 'true');
+            targetBtn.addEventListener(
+              'mouseleave',
+              () => {
+                targetBtn.style.transform = '';
+              },
+              { once: true }
+            );
+          }
+        }
       }
     };
 
