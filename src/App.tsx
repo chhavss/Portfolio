@@ -1,4 +1,5 @@
 import React from 'react';
+import { CustomCursor } from './components/CustomCursor';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -13,6 +14,7 @@ import { Footer } from './components/Footer';
 export const App: React.FC = () => {
   return (
     <div className="portfolio-app-root">
+      <CustomCursor />
       {/* Top Retro Marquee Ticker */}
       <div className="marquee-container" aria-hidden="true">
         <div className="marquee-content">

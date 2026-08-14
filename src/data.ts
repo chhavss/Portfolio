@@ -205,7 +205,7 @@ export const EXPERIENCES: ExperienceItem[] = [
     skills: ['Javascript', 'FastAPI', 'React', 'CSS3', 'REST APIs'],
     badgeColor: 'sticker-yellow'
   },
-  
+
 ];
 
 export const CERTIFICATIONS: CertificationItem[] = [
@@ -320,5 +320,6 @@ export const SOCIAL_LINKS = {
   phoneCall: 'tel:+918101081616',
   github: 'https://github.com/chhavss',
   linkedin: 'https://www.linkedin.com/in/chhavi-31418231b/',
-  leetcode: 'https://leetcode.com/u/chhavss'
+  leetcode: 'https://leetcode.com/u/chhavss',
+  resume: '/CR.pdf'
 };

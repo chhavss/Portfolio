@@ -28,8 +28,8 @@ export const Hero: React.FC = () => {
             <a href="#projects" className="btn-retro btn-primary hero-btn">
               View My Work <ArrowDownRight size={20} />
             </a>
-            <a href={SOCIAL_LINKS.email} className="btn-retro btn-secondary hero-btn">
-              Let's Connect <ArrowUpRight size={20} />
+            <a href={SOCIAL_LINKS.resume} target="_blank" rel="noopener noreferrer" className="btn-retro btn-secondary hero-btn">
+              View Resume <ArrowUpRight size={20} />
             </a>
           </div>
 
@@ -92,7 +92,7 @@ export const Hero: React.FC = () => {
                 <div className="terminal-code">
                   <p><span className="code-keyword">class</span> <span className="code-class">Developer</span> &#123;</p>
                   <p className="code-indent"><span className="code-keyword">String</span> name = <span className="code-string">"Chhavi"</span>;</p>
-                  <p className="code-indent"><span className="code-keyword">String[]</span> skills = &#123;<span className="code-string">"Java"</span>, <span className="code-string">"React"</span>, <span className="code-string">"AI/ML"</span>&#125;;</p>
+                  <p className="code-indent"><span className="code-keyword">String[]</span> skills = &#123;<span className="code-string">"LLMs"</span>, <span className="code-string">"MERN"</span>, <span className="code-string">"AI/ML"</span>&#125;;</p>
                   <p className="code-indent"><span className="code-keyword">boolean</span> passionate = <span className="code-bool">true</span>;</p>
                   <p className="code-indent"><span className="code-keyword">public void</span> <span className="code-func">buildImpact</span>() &#123;</p>
                   <p className="code-indent-2"><span className="code-func">solveDSA</span>();</p>
